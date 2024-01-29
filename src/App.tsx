@@ -52,7 +52,7 @@ function App() {
             <text className="score-text" style={{marginRight: '10px'}}>{appState.localPlayerLosses} |</text>
             <Image
               className="profile-picture"
-              src="blank_pfp.jpg"/>
+              src="opponent.png"/>
           </Col>
         </Row>
         <Row style={{marginTop: '10px'}}>
@@ -62,7 +62,6 @@ function App() {
           </text>
         </Row>
       </Container>
-
     </div>
   );
 }
