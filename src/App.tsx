@@ -57,7 +57,8 @@ function App() {
         </Row>
         <Row style={{marginTop: '10px'}}>
           <text
-            className="score-text">{appState.playerWins} W - {appState.playerLosses} L
+            className="score-text">{appState.playerWins ? appState.playerWins + appState.localPlayerWins : 0} W
+            - {appState.playerLosses ? appState.playerLosses + appState.localPlayerLosses : 0} L
           </text>
         </Row>
       </Container>

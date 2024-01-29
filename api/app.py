@@ -62,33 +62,39 @@ def increase_local_wins():
     """
     Increments the number of local wins by a specified amount.
 
-    :return: None
+    :return: {}
     """
     increment_by = int(request.args.get('increment_by', default=1))
     score_data = read_json_file(SCORE_FILE)
     score_data["wins"] += increment_by
     write_json_file(SCORE_FILE, score_data)
 
+    return {}
+
 @app.route("/IncrementLocalLosses")
 def increase_local_losses():
     """Increments the local losses score by a given value.
 
-    :return: None
+    :return: {}
     """
     increment_by = int(request.args.get('increment_by', default=1))
     score_data = read_json_file(SCORE_FILE)
     score_data["losses"] += increment_by
     write_json_file(SCORE_FILE, score_data)
 
+    return {}
+
 @app.route("/ResetLocalWinsLosses")
 def reset_local_stats():
     """
     Resets the local wins and losses statistics to zero.
 
-    :return: None
+    :return: {}
     """
     score_data = {
         "wins": 0,
         "losses": 0
     }
     write_json_file(SCORE_FILE, score_data)
+
+    return {}
