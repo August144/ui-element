@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Container, Row, Col, Image} from "react-bootstrap";
 import {useAppDispatch, useAppSelector} from "./redux/hooks";
-import {getLocalScores, getPlayerData, selectApp} from "./redux/appSlice";
+import {DisplayMode, getLocalScores, getPlayerData, selectApp, setDisplayMode} from "./redux/appSlice";
 
 /**
  * App component.
@@ -17,10 +17,18 @@ function App() {
 
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+
+    const displayMode = params.get("DM")
+
+    if (displayMode)
+      dispatch(setDisplayMode(displayMode as DisplayMode))
+
     dispatch(getPlayerData());
 
     const playerDataInterval = setInterval(() => {
-      dispatch(getPlayerData());
+      if (appState.displayMode === "MatchBox")
+        dispatch(getPlayerData());
     }, 30000);
     const localScoreInterval = setInterval(() => {
       dispatch(getLocalScores());
@@ -36,11 +44,14 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <Row style={{marginBottom: '10px'}}>
-          <text
-            className="score-text">MMR: {appState.playerMMR}
-          </text>
-        </Row>
+        {appState.displayMode === "MatchBox" &&
+            <Row style={{marginBottom: '10px'}}>
+                <text
+                    className="score-text">MMR: {appState.playerMMR}
+                </text>
+            </Row>
+        }
+
         <Row>
           <Col className="left-col">
             <Image
@@ -55,12 +66,15 @@ function App() {
               src="opponent.png"/>
           </Col>
         </Row>
-        <Row style={{marginTop: '10px'}}>
-          <text
-            className="score-text">{appState.playerWins ? appState.playerWins + appState.localPlayerWins : 0} W
-            - {appState.playerLosses ? appState.playerLosses + appState.localPlayerLosses : 0} L
-          </text>
-        </Row>
+        {appState.displayMode === "MatchBox" &&
+            <Row style={{marginTop: '10px'}}>
+                <text
+                    className="score-text">{appState.playerWins ? appState.playerWins + appState.localPlayerWins : 0} W
+                    - {appState.playerLosses ? appState.playerLosses + appState.localPlayerLosses : 0} L
+                </text>
+            </Row>
+        }
+
       </Container>
     </div>
   );

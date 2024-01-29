@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import axios from "axios";
 import {RootState} from "./store";
 
@@ -8,6 +8,7 @@ import {RootState} from "./store";
  * @interface IAppState
  */
 interface IAppState {
+  displayMode: DisplayMode;
   playerId?: number;
   playerMMR?: number;
   playerWins?: number;
@@ -24,9 +25,12 @@ interface IAppState {
  * @property {number} localPlayerLosses - The number of losses for the local player.
  */
 const initialState: IAppState = {
+  displayMode: "MatchBox",
   localPlayerWins: 0,
   localPlayerLosses: 0,
 }
+
+export type DisplayMode = "MatchBox" | "WL";
 
 /**
  * Represents the interface for tracking wins and losses.
@@ -141,7 +145,11 @@ export const getPlayerData = createAsyncThunk('app/getPlayerData', async (_, thu
 export const appSlice = createSlice({
   name: 'app',
   initialState,
-  reducers: {},
+  reducers: {
+    setDisplayMode: (state, action: PayloadAction<DisplayMode>) => {
+      state.displayMode = action.payload;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getPlayerData.fulfilled, (state, action) => {
@@ -163,5 +171,8 @@ export const appSlice = createSlice({
  * @param {Object} state - The state object.
  * @returns {Object} - The app property from the state object.
  */
+
+export const {setDisplayMode} = appSlice.actions;
+
 export const selectApp = (state: { app: IAppState }) => state.app;
 export default appSlice.reducer;
