@@ -1,12 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
-import {Container, Row, Col, Image, ProgressBar} from "react-bootstrap";
+import {Container, Row, Col, Image} from "react-bootstrap";
 import {useAppDispatch, useAppSelector} from "./redux/hooks";
 import {getLocalScores, getPlayerData, selectApp} from "./redux/appSlice";
 
+/**
+ * App component.
+ *
+ * This component renders the main application UI and handles data fetching and interval updates.
+ *
+ * @return {JSX.Element} The rendered App component.
+ */
 function App() {
-  // const [playerDataInterval, setPlayerDataInterval] = useState(null);
-  // const [localScoreInterval, setLocalScoreInterval] = useState(null);
   const appState = useAppSelector(selectApp);
   const dispatch = useAppDispatch();
 
@@ -16,7 +21,7 @@ function App() {
 
     const playerDataInterval = setInterval(() => {
       dispatch(getPlayerData());
-    }, 15000);
+    }, 30000);
     const localScoreInterval = setInterval(() => {
       dispatch(getLocalScores());
 
@@ -39,14 +44,14 @@ function App() {
         <Row>
           <Col className="left-col">
             <Image
-              className="PFP"
+              className="profile-picture"
               src="https://static-cdn.jtvnw.net/jtv_user_pictures/f4cdcadb-9481-41bd-854a-e58aa8489e78-profile_image-70x70.jpeg"/>
             <text className="score-text" style={{marginLeft: '10px'}}>| {appState.localPlayerWins}</text>
           </Col>
           <Col className="right-col">
             <text className="score-text" style={{marginRight: '10px'}}>{appState.localPlayerLosses} |</text>
             <Image
-              className="PFP"
+              className="profile-picture"
               src="blank_pfp.jpg"/>
           </Col>
         </Row>

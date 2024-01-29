@@ -1,19 +1,27 @@
-.App {
-    text-align: center;
-    /*background: black;*/
+:root {
+    --main-font-size: 35px;
+    --main-color: white;
+    --main-border-color: black;
+    --main-border-width: 2px;
+    --main-profile-pic-border-width: 4px;
+    --main-profile-pic-width: 75px;
+    --center-align: center;
+}
+
+.app-container {
+    text-align: var(--center-align);
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    .PFP {
-        animation: App-logo-spin infinite 3s linear;
+    .profile-picture {
+        animation: profile-picture-spin infinite 3s normal;
     }
 }
 
-@keyframes App-logo-spin {
+@keyframes profile-picture-spin {
     0% {
         transform: rotate(5deg);
     }
-
     50% {
         transform: rotate(-5deg);
     }
@@ -23,26 +31,29 @@
 }
 
 .score-text {
-    font-size: 35px;
-    color: white;
+    font-size: var(--main-font-size);
+    color: var(--main-color);
     width: 100%;
-    text-align: center;
+    text-align: var(--center-align);
 }
 
-.PFP {
-    width: 75px;
+.profile-picture {
+    width: var(--main-profile-pic-width);
     border-radius: 50%;
-    border: 4px black solid;
+    border: var(--main-profile-pic-border-width) var(--main-border-color) solid;
+}
+
+.left-col, .right-col {
+    margin: 0;
+    padding: 0;
 }
 
 .left-col {
-    margin: 0;
-    padding: 0;
-    border-right: 2px white solid;
+    border-right: var(--main-border-width) var(--main-color) solid;
 }
 
 .right-col {
-    margin: 0;
-    padding: 0;
-    border-left: 2px white solid;
+    border-left: var(--main-border-width) var(--main-color) solid;
+    text-align: right;
+
 }
