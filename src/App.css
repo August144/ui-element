@@ -6,6 +6,10 @@
     --main-profile-pic-border-width: 4px;
     --main-profile-pic-width: 75px;
     --center-align: center;
+    background-color: #00000070;
+}
+
+.app {
 }
 
 .app-container {

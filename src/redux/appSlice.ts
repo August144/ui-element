@@ -11,10 +11,10 @@ interface IAppState {
   displayMode: DisplayMode;
   playerId?: number;
   playerMMR?: number;
-  playerWins?: number;
-  playerLosses?: number;
-  localPlayerWins: number;
-  localPlayerLosses: number;
+  playerSetWins?: number;
+  playerSetLosses?: number;
+  localPlayerGameWins: number;
+  localPlayerGameLosses: number;
 }
 
 /**
@@ -26,8 +26,8 @@ interface IAppState {
  */
 const initialState: IAppState = {
   displayMode: "MatchBox",
-  localPlayerWins: 0,
-  localPlayerLosses: 0,
+  localPlayerGameWins: 0,
+  localPlayerGameLosses: 0,
 }
 
 export type DisplayMode = "MatchBox" | "WL";
@@ -155,12 +155,13 @@ export const appSlice = createSlice({
       .addCase(getPlayerData.fulfilled, (state, action) => {
         state.playerId = action.payload.playerId;
         state.playerMMR = action.payload.playerMMR;
-        state.playerWins = action.payload.playerWins;
-        state.playerLosses = action.payload.playerLosses;
+
+        state.playerSetWins = action.payload.playerWins;
+        state.playerSetLosses = action.payload.playerLosses;
       })
       .addCase(getLocalScores.fulfilled, (state, action) => {
-        state.localPlayerWins = action.payload.wins;
-        state.localPlayerLosses = action.payload.losses;
+        state.localPlayerGameWins = action.payload.wins;
+        state.localPlayerGameLosses = action.payload.losses;
       })
   }
 });
